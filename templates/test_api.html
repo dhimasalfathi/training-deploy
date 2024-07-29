@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Safety API</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h1>Test Safety API</h1>
+    <button id="startWebcam">Start Webcam</button>
+    <button id="stopWebcam">Stop Webcam</button>
+    <div id="result"></div>
+    <video id="outputVideo" controls style="display: none;"></video>
+
+    <script>
+        $(document).ready(function() {
+            $('#startWebcam').click(function() {
+                $.ajax({
+                    url: '/start_webcam',
+                    method: 'POST',
+                    success: function(response) {
+                        $('#result').text('Webcam started successfully');
+                        $('#outputVideo').attr('src', response.video_url).show();
+                    },
+                    error: function(xhr, status, error) {
+                        $('#result').text('Error starting webcam: ' + xhr.responseJSON.error);
+                    }
+                });
+            });
+
+            $('#stopWebcam').click(function() {
+                $.ajax({
+                    url: '/stop_webcam',
+                    method: 'POST',
+                    success: function(response) {
+                        $('#result').text('Webcam stopped successfully');
+                        $('#outputVideo').hide();
+                    },
+                    error: function(xhr, status, error) {
+                        $('#result').text('Error stopping webcam: ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

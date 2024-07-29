@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Processing</title>
+</head>
+
+<body>
+    <h1>TESTTT</h1>
+
+    {% if video_url %}
+    <h2>Processed Video</h2>
+    <video width="600" controls>
+            <source src="{{ video_url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    <br><br>
+    <a href="{{ video_url }}" download>Download Processed Video</a>
+    <br><br>
+    <a href="/">Upload Another Video</a> {% else %}
+    <h2>Upload Video or Use Webcam</h2>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <label for="file">Choose video file:</label>
+        <input type="file" id="file" name="file" accept="video/*">
+        <br><br>
+        <input type="submit" value="Upload">
+    </form>
+    <form action="/" method="post">
+        <input type="hidden" name="use_webcam" value="true">
+        <input type="submit" value="Use Webcam">
+    </form>
+    {% endif %} {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul class="flashes">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+</body>
+
+</html>
