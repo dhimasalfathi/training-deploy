@@ -68,33 +68,7 @@ def index():
 
             # Run YOLO inference on uploaded video
             results = model(
-                source=resized_video_path,
-                show=False,
-                conf=0.6,
-                save=True,
-                classes=[
-                    5,
-                    6,
-                    7,
-                    9,
-                    12,
-                    13,
-                    14,
-                    17,
-                    18,
-                    19,
-                    20,
-                    21,
-                    22,
-                    23,
-                    24,
-                    25,
-                    26,
-                    27,
-                    28,
-                    29,
-                    30,
-                ],
+                source=resized_video_path, show=False, conf=0.6, save=True, device="cpu"
             )
 
             # Find the latest output file path
@@ -119,35 +93,7 @@ def index():
 
         elif "use_webcam" in request.form:
             # Run YOLO inference on webcam
-            results = model(
-                source="0",
-                show=True,
-                conf=0.4,
-                save=True,
-                classes=[
-                    5,
-                    6,
-                    7,
-                    9,
-                    12,
-                    13,
-                    14,
-                    17,
-                    18,
-                    19,
-                    20,
-                    21,
-                    22,
-                    23,
-                    24,
-                    25,
-                    26,
-                    27,
-                    28,
-                    29,
-                    30,
-                ],
-            )
+            results = model(source="0", show=True, conf=0.4, save=True, device="cpu")
 
             # Find the latest output file path
             output_folder = os.path.join("runs", "detect")
